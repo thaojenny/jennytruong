@@ -1,0 +1,7 @@
+~ $ git clone http://github.com/thaojenny/jennytruong.github.io
+~ $ cd jennytruong.github.io
+~ $ echo "Hello World" > index.html
+
+~ $ git add --all
+~ $ git comit -m "Initial comit"
+~ $ git push -u origin main
