@@ -1,0 +1,15 @@
+with jenny as (
+SELECT
+      emp_id,
+         CASE WHEN extract(minute from timestamp) >= extract(minute from lag(timestamp) OVER(PARTITION BY CAST(timestamp AS date),emp_id ORDER BY timestamp)) then extract(hour from timestamp) - extract(hour from lag(timestamp) OVER(PARTITION BY CAST(timestamp AS date),emp_id ORDER BY timestamp)) 
+         ELSE extract(hour from timestamp) - extract(hour from lag(timestamp) OVER(PARTITION BY CAST(timestamp AS date),emp_id ORDER BY timestamp)) - 1
+       END AS hw
+FROM   attendance
+where weekday(timestamp) in (5,6))
+
+select emp_id, sum(hw) as hours
+from jenny
+group by emp_id
+order by hours desc;
+
+
