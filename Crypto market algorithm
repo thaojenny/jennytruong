@@ -1,0 +1,11 @@
+select c.algorithm,
+    sum(case when extract(month from t.dt) in (1,2,3) then t.volume else 0 end) as transactions_Q1,
+    sum(case when extract(month from t.dt) in (4,5,6) then t.volume else 0 end) as transactions_Q2,
+    sum(case when extract(month from t.dt) in (7,8,9) then t.volume else 0 end) as transactions_Q3,
+    sum(case when extract(month from t.dt) in (10,11,12) then t.volume else 0 end) as transactions_Q4
+from coins as c
+inner join transactions as t
+on c.code = t. coin_code
+where extract(year from dt) ='2020'
+group by algorithm
+order by algorithm asc;
